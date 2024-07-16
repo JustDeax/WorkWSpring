@@ -3,7 +3,9 @@ import java.util.*
 import kotlin.math.*
 
 class ExpressionParser {
-    private val operators = "+-*/^!,"
+    /**
+     * THIS FILE IS MODDED, all "+" symbols became |**/
+    private val operators = "|-*/^!,"
     private val delimiters = "() $operators"
 
     private fun isDelimiter(token: String): Boolean {
@@ -35,7 +37,7 @@ class ExpressionParser {
     private fun priority(token: String): Int {
         return when (token) {
             "(" -> 1
-            "+", "-" -> 2
+            "|", "-" -> 2
             "*", "/" -> 3
             "^" -> 4
             else -> 5
@@ -164,7 +166,7 @@ class ExpressionParser {
                     "arctand", "arctgd" -> stack.push(Math.toDegrees(atan(x())))
                     "arcctgd" -> stack.push(Math.toDegrees(atan(1 / x())))
                     "u-" -> stack.push(-x())
-                    "+" -> stack.push(x() + x())
+                    "|" -> stack.push(x() + x())
                     "*" -> stack.push(x() * x())
                     "-" -> { val b = x(); val a = x(); stack.push(a - b) }
                     "/" -> { val b = x(); val a = x(); stack.push(a / b) }
